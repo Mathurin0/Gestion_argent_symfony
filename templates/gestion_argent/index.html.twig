@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion d'argent entre amis{% endblock %}
+
+{% block body %}
+    <h1>Soirées :</h1>
+    {% for s in soirees %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ s.lieu }}</h5>
+                <p class="card-text">{{ s.date|date('m-d-Y') }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for p in participants %}
+                    {% if p.soiree.id == s.id %}
+                        <li class="list-group-item">
+                            {{ p.nom }} {{ p.prenom }} à avancé {{ p.montant }}€
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="card-body">
+                <a href="{{ path("resoudre", {"id":s.id}) }}" type="button" class="btn btn-primary">Résoudre</a>
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
